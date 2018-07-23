@@ -98,8 +98,12 @@
      .grid {
          height: 400px;
      }
-     @media (max-width:570px) {
-         .grid {
-             margin-top: 100px;
-         }
+ }
+
+ @media (max-width:400px) {
+     .grid {
+        margin-top: 16px;
      }
+ }
+
+
