@@ -98,42 +98,87 @@ const resetGuesses = () => {
     });
 };
 
-grid.addEventListener('click', event => {
+(function foo() {
 
-    const clicked = event.target;
+    if (window.screen.width < 500) {
+        grid.addEventListener('touchstart', event => {
 
-    if (
-        clicked.nodeName === 'SECTION' ||
-        clicked === previousTarget ||
-        clicked.parentNode.classList.contains('selected') ||
-        clicked.parentNode.classList.contains('match')
-    ) {
-        return;
-    }
+            const clicked = event.target;
 
-    if (count < 2) {
-        count++;
-        if (count === 1) {
-            firstGuess = clicked.parentNode.dataset.name;
-            clicked.parentNode.classList.add('selected');
-        } else {
-            secondGuess = clicked.parentNode.dataset.name;
-            clicked.parentNode.classList.add('selected');
-        }
-
-        if (firstGuess && secondGuess) {
-            if (firstGuess === secondGuess) {
-                setTimeout(match, delay);
-                document.getElementById('score').innerHTML = score++
+            if (
+                clicked.nodeName === 'SECTION' ||
+                clicked === previousTarget ||
+                clicked.parentNode.classList.contains('selected') ||
+                clicked.parentNode.classList.contains('match')
+            ) {
+                return;
             }
-            setTimeout(resetGuesses, delay);
-        }
-        previousTarget = clicked;
-    }
 
-    if (score >= 11) {
-        document.getElementById('end').style.display = 'flex';
-        
-    }
+            if (count < 2) {
+                count++;
+                if (count === 1) {
+                    firstGuess = clicked.parentNode.dataset.name;
+                    clicked.parentNode.classList.add('selected');
+                } else {
+                    secondGuess = clicked.parentNode.dataset.name;
+                    clicked.parentNode.classList.add('selected');
+                }
 
-});
+                if (firstGuess && secondGuess) {
+                    if (firstGuess === secondGuess) {
+                        setTimeout(match, delay);
+                        document.getElementById('score').innerHTML = score++
+                    }
+                    setTimeout(resetGuesses, delay);
+                }
+                previousTarget = clicked;
+            }
+
+            if (score >= 11) {
+                document.getElementById('end').style.display = 'flex';
+
+            }
+
+        });
+    } else {
+        grid.addEventListener('click', event => {
+
+            const clicked = event.target;
+
+            if (
+                clicked.nodeName === 'SECTION' ||
+                clicked === previousTarget ||
+                clicked.parentNode.classList.contains('selected') ||
+                clicked.parentNode.classList.contains('match')
+            ) {
+                return;
+            }
+
+            if (count < 2) {
+                count++;
+                if (count === 1) {
+                    firstGuess = clicked.parentNode.dataset.name;
+                    clicked.parentNode.classList.add('selected');
+                } else {
+                    secondGuess = clicked.parentNode.dataset.name;
+                    clicked.parentNode.classList.add('selected');
+                }
+
+                if (firstGuess && secondGuess) {
+                    if (firstGuess === secondGuess) {
+                        setTimeout(match, delay);
+                        document.getElementById('score').innerHTML = score++
+                    }
+                    setTimeout(resetGuesses, delay);
+                }
+                previousTarget = clicked;
+            }
+
+            if (score >= 11) {
+                document.getElementById('end').style.display = 'flex';
+
+            }
+
+        });
+    }
+})();
